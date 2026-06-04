@@ -47,12 +47,19 @@ export const useAuthStore = create<AuthState>()(
           return;
         }
         try {
-          const response = await axios.post(`${API_URL}/auth/refresh`, {
+          const refreshResponse = await axios.post(`${API_URL}/auth/refresh`, {
             refreshToken,
           });
-          const { accessToken } = response.data.data;
+          const { accessToken } = refreshResponse.data.data;
+
+          const profileResponse = await axios.get(`${API_URL}/users/profile`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          const user = profileResponse.data.data.user;
+
           set({
             accessToken,
+            user,
             isAuthenticated: true,
             isInitializing: false,
           });

@@ -6,6 +6,11 @@ import { Products } from "./pages/Products";
 import { ProductDetail } from "./pages/ProductDetail";
 import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
+import { AccountLayout } from "./components/AccountLayout";
+import { AccountDashboard } from "./pages/Account/Dashboard";
+import { Profile } from "./pages/Account/Profile";
+import { Orders } from "./pages/Account/Orders";
+import { OrderDetail } from "./pages/Account/OrderDetail";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { CartDropdown } from "./components/CartDropdown";
 import { Layout } from "./components/Layout";
@@ -73,6 +78,21 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Account Section */}
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <AccountLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<AccountDashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="orders/:id" element={<OrderDetail />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

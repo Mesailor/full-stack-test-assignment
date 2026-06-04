@@ -42,9 +42,12 @@ export const Header = () => {
         {/* Right side */}
         <div className="flex items-center gap-4">
           {user && (
-            <span className="hidden md:block text-sm text-gray-400">
+            <NavLink
+              to="/account"
+              className="hidden md:block text-sm text-gray-400 hover:text-surface transition-colors"
+            >
               {user.first_name} {user.last_name}
-            </span>
+            </NavLink>
           )}
 
           {/* Cart button with badge */}
