@@ -15,6 +15,28 @@
 - Asked agent to split the development flow into `session.md` files and create one for each step with comprehensive description.
   On the 7 file creation, noticed that each creation takes too much money and continued in a new session.
 
-- Setup the DB
+- Setup the DB.
 
-- Initiated the development process from Session-1 .md file
+- Initiated the development process from Session-1 .md file.
+
+---
+
+- The result UI looks clear, but not as "fancy" as we'd like it to be.
+
+- During the planning, some sessions missed small but important details (no cart badge creation step in session 7, no header creation in step 8)
+
+- Minor twicks in login form validation? Checkout process?
+
+- AI forgot to manage the state loss on page reload in React. Might worth mentioning it explicitly.
+
+- UI shift comparing two pages. AI couldn't notice it by itself or was added in the sessions .md
+
+- AI allowed to change the account email which should be managed strictly.
+
+- AI exposed the account ID
+
+- Error UI is not generated. API responde with 400 on `/register` and on account edit
+
+- Any other security naunses (token storage / account info storage / password storage etc.) might worth checking
+
+- When creating tests AI added `data-testid` instead of relying on accessibility improvements.
