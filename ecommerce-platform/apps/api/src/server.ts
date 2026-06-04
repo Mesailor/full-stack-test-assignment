@@ -4,6 +4,8 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import authRoutes from "./routes/auth.routes";
+import { errorHandler, notFoundHandler } from "./middleware/error.middleware";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -20,19 +22,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Health check route
-app.get("/health", (req, res) => {
+app.get("/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Placeholder for API routes
-app.get("/api", (req, res) => {
-  res.json({ message: "eCommerce API - Ready for implementation" });
-});
+// API Routes
+app.use("/api/auth", authRoutes);
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: "Route not found" });
-});
+// Error handling
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
