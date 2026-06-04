@@ -24,7 +24,11 @@ export const ProductCard = ({ product, onClick }: ProductCardProps) => {
   };
 
   return (
-    <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2 }}
+      data-testid="product-card"
+    >
       <Card hover padding="none" className="cursor-pointer overflow-hidden">
         <div onClick={onClick}>
           <div className="relative pb-[75%] bg-gray-100">

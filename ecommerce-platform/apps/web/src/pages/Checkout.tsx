@@ -46,7 +46,7 @@ export const Checkout = () => {
     formState: { errors: paymentErrors },
   } = useForm<PaymentFormData>();
 
-  if (items.length === 0 && currentStep < 4) {
+  if (items.length === 0 && currentStep < 4 && !isSubmitting) {
     navigate("/cart");
     return null;
   }

@@ -31,6 +31,7 @@ export const CartItem = ({ item }: CartItemProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -20 }}
       className="flex gap-4 bg-surface p-4 rounded-md shadow-sm border border-gray-200"
+      data-testid="cart-item"
     >
       <div className="w-24 h-24 flex-shrink-0 bg-gray-100 rounded-sm overflow-hidden">
         <img

@@ -70,7 +70,10 @@ export const Header = () => {
               />
             </svg>
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-primary text-secondary text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+              <span
+                data-testid="cart-badge"
+                className="absolute -top-1 -right-1 bg-primary text-secondary text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
+              >
                 {totalItems > 99 ? "99+" : totalItems}
               </span>
             )}

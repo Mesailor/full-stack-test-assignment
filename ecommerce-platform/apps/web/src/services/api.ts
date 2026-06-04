@@ -29,12 +29,16 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      try {
-        const refreshToken = useAuthStore.getState().refreshToken;
-        if (!refreshToken) {
-          throw new Error("No refresh token");
-        }
+      const refreshToken = useAuthStore.getState().refreshToken;
 
+      // No refresh token means we're on an auth page (login/register) or
+      // the session has fully expired — just reject so the caller can show
+      // the error message rather than causing an unrelated redirect.
+      if (!refreshToken) {
+        return Promise.reject(error);
+      }
+
+      try {
         const response = await axios.post(`${API_URL}/auth/refresh`, {
           refreshToken,
         });
