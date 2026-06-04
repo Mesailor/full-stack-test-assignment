@@ -1,0 +1,105 @@
+// This is your Prisma schema file
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// User model
+model User {
+  id            String     @id @default(uuid())
+  email         String     @unique
+  password_hash String
+  first_name    String
+  last_name     String
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+
+  // Relations
+  orders        Order[]
+  cart_items    CartItem[]
+
+  @@map("users")
+}
+
+// Product model
+model Product {
+  id          String      @id @default(uuid())
+  name        String
+  description String      @db.Text
+  price       Decimal     @db.Decimal(10, 2)
+  image_url   String
+  category    String
+  stock       Int         @default(0)
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+
+  // Relations
+  cart_items  CartItem[]
+  order_items OrderItem[]
+
+  @@index([category])
+  @@map("products")
+}
+
+// CartItem model
+model CartItem {
+  id         String   @id @default(uuid())
+  user_id    String
+  product_id String
+  quantity   Int      @default(1)
+  created_at DateTime @default(now())
+
+  // Relations
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [product_id], references: [id])
+
+  @@unique([user_id, product_id])
+  @@map("cart_items")
+}
+
+// Order model
+model Order {
+  id               String      @id @default(uuid())
+  user_id          String
+  status           OrderStatus @default(PENDING)
+  total_amount     Decimal     @db.Decimal(10, 2)
+  shipping_address String      @db.Text
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+
+  // Relations
+  user             User        @relation(fields: [user_id], references: [id])
+  order_items      OrderItem[]
+
+  @@index([user_id])
+  @@map("orders")
+}
+
+// OrderItem model
+model OrderItem {
+  id         String  @id @default(uuid())
+  order_id   String
+  product_id String
+  quantity   Int
+  price      Decimal @db.Decimal(10, 2)
+
+  // Relations
+  order      Order   @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  product    Product @relation(fields: [product_id], references: [id])
+
+  @@map("order_items")
+}
+
+// OrderStatus enum
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
