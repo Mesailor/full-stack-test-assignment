@@ -4,35 +4,72 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Products } from "./pages/Products";
 import { ProductDetail } from "./pages/ProductDetail";
+import { Cart } from "./pages/Cart";
+import { Checkout } from "./pages/Checkout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { CartDropdown } from "./components/CartDropdown";
+import { Layout } from "./components/Layout";
 
 function App() {
   return (
     <BrowserRouter>
+      <CartDropdown />
+
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
         <Route
           path="/"
           element={
             <ProtectedRoute>
-              <Home />
+              <Layout>
+                <Home />
+              </Layout>
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/products"
           element={
             <ProtectedRoute>
-              <Products />
+              <Layout>
+                <Products />
+              </Layout>
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/products/:id"
           element={
             <ProtectedRoute>
-              <ProductDetail />
+              <Layout>
+                <ProductDetail />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Cart />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Checkout />
+              </Layout>
             </ProtectedRoute>
           }
         />
