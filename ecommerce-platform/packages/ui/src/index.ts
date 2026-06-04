@@ -1,4 +1,6 @@
-// Shared UI components for the eCommerce platform
-// This package will be populated in Session 2
-
-export {};
+// Export all components
+export * from "./components/Button";
+export * from "./components/Card";
+export * from "./components/Input";
+export * from "./components/Modal";
+export * from "./components/Spinner";
